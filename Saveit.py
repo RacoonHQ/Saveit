@@ -1,9 +1,31 @@
+import sys
+import subprocess
+
+# Auto-install required libraries if they are not installed
+required_libs = {
+    "telethon": "telethon",
+    "dotenv": "python-dotenv",
+    "PIL": "pillow"
+}
+
+for module_name, pip_name in required_libs.items():
+    try:
+        __import__(module_name)
+    except ImportError:
+        print(f"Library '{pip_name}' tidak ditemukan. Menginstal otomatis...")
+        try:
+            subprocess.check_call([sys.executable, "-m", "pip", "install", pip_name])
+            print(f"✅ Berhasil menginstal '{pip_name}'")
+        except Exception as e:
+            print(f"❌ Gagal menginstal '{pip_name}': {e}")
+            sys.exit(1)
+
 from telethon import TelegramClient, events
 import os
 import re
 from dotenv import load_dotenv
 from PIL import Image
-from PIL.ExifTags import TAGS, GPSTAGS
+from PIL.ExifTags import TAGS
 
 def get_image_metadata(file_path):
     metadata = {}
@@ -36,44 +58,6 @@ def get_image_metadata(file_path):
             date_time = raw_exif.get("DateTimeOriginal") or raw_exif.get("DateTime")
             if date_time:
                 metadata["taken_at"] = str(date_time).strip()
-            
-            # 3. GPS Location
-            gps_info = raw_exif.get("GPSInfo")
-            if gps_info:
-                gps_data = {}
-                for t in gps_info:
-                    sub_tag = GPSTAGS.get(t, t)
-                    gps_data[sub_tag] = gps_info[t]
-                
-                def get_decimal_from_dms(dms, ref):
-                    def to_float(val):
-                        try:
-                            return float(val)
-                        except (TypeError, ValueError):
-                            if hasattr(val, 'numerator') and hasattr(val, 'denominator'):
-                                return float(val.numerator) / float(val.denominator)
-                            return 0.0
-                    
-                    if len(dms) >= 3:
-                        d = to_float(dms[0])
-                        m = to_float(dms[1])
-                        s = to_float(dms[2])
-                        decimal = d + (m / 60.0) + (s / 3600.0)
-                        if ref in ['S', 'W']:
-                            decimal = -decimal
-                        return decimal
-                    return 0.0
-                
-                lat_dms = gps_data.get("GPSLatitude")
-                lat_ref = gps_data.get("GPSLatitudeRef")
-                lon_dms = gps_data.get("GPSLongitude")
-                lon_ref = gps_data.get("GPSLongitudeRef")
-                
-                if lat_dms and lat_ref and lon_dms and lon_ref:
-                    lat = get_decimal_from_dms(lat_dms, lat_ref)
-                    lon = get_decimal_from_dms(lon_dms, lon_ref)
-                    metadata["location"] = f"{lat:.6f}, {lon:.6f}"
-                    metadata["google_maps_url"] = f"https://www.google.com/maps?q={lat},{lon}"
     except Exception:
         pass
     return metadata
@@ -176,8 +160,6 @@ def create_handler(client, your_user_id_holder):
                         caption += f"\n📱 Device: {meta['device']}"
                     if "taken_at" in meta:
                         caption += f"\n📅 Taken at: {meta['taken_at']}"
-                    if "location" in meta:
-                        caption += f"\n📍 Location: [{meta['location']}]({meta['google_maps_url']})"
                 else:
                     print("DEBUG: get_image_metadata returned empty or None")
 

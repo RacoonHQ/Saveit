@@ -9,7 +9,7 @@ A flexible and silent media saver for Telegram, running in **Userbot Mode** (sav
 * **Self-Destructing Media Support**: Automatically saves timed/self-destructing media from any chat.
 * **Multi-Account Support**: Run multiple accounts simultaneously by configuring `API_ID_1`, `API_ID_2`, etc.
 * **Zero Compression**: Forwards downloaded media back to your **Saved Messages** as original document files, preserving full quality.
-* **EXIF Metadata Reader**: Extracts and appends metadata (Device Model, Taken Time, GPS Location with Google Maps link) for photos if available.
+* **EXIF Metadata Reader**: Extracts and appends metadata (Device Model, Taken Time) for photos if available.
 * **Flexible Handler**: 
   * Reply to any media with your custom handler (e.g. `.saveit`).
   * If the handler is left empty, **automatic saving** is enabled (simply reply to any media to save it).
