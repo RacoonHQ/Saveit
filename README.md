@@ -1,12 +1,12 @@
-# Saveit 📎
+# Saveit
 
 A flexible and silent media saver for Telegram, supporting both **Userbot Mode** (saves self-destructing/timed photos & videos from chats to your Saved Messages) and **Bot Mode** (runs as a dedicated bot that accepts and saves forwarded/direct media).
 
 ---
 
-## 🚀 Features
+## Features
 
-### 👤 Userbot Mode (`Saveit.py`)
+### Userbot Mode (`Saveit.py`)
 * **Self-Destructing Media Support**: Automatically saves timed/self-destructing media from any chat.
 * **Multi-Account Support**: Run multiple accounts simultaneously by configuring `API_ID_1`, `API_ID_2`, etc.
 * **Zero Compression**: Forwards downloaded media back to your **Saved Messages** as original document files, preserving full quality.
@@ -16,7 +16,7 @@ A flexible and silent media saver for Telegram, supporting both **Userbot Mode**
   * If the handler is left empty, **automatic saving** is enabled (simply reply to any media to save it).
 * **Silent & Background Operation**: Runs completely in the background without sending chat notifications.
 
-### 🤖 Bot Mode (`Saveit_bot.py`)
+### Bot Mode (`Saveit_bot.py`)
 * **Dedicated Bot**: Run a standalone Telegram bot using a Token from `@BotFather`.
 * **Access Control / Whitelist**: Control who can use the bot using `ALLOWED_USERS` in `.env` and runtime auto-registration (stored in `registered_users.json`).
 * **Auto-Save Mode**: Automatically downloads and sends back any media sent directly to the bot.
@@ -24,7 +24,7 @@ A flexible and silent media saver for Telegram, supporting both **Userbot Mode**
 
 ---
 
-## 🛠️ Requirements
+## Requirements
 
 * **Python 3.9+**
 * Dependencies: `telethon`, `python-telegram-bot` (only for Bot Mode), `python-dotenv`, `pillow`.
@@ -37,7 +37,7 @@ pip install -r requirements.txt
 
 ---
 
-## ⚙️ Configuration (`.env`)
+## Configuration (`.env`)
 
 Create a `.env` file in the root directory (or copy `.env.example`).
 
@@ -65,7 +65,7 @@ AUTO_SAVE=true
 
 ---
 
-## 🏁 Quick Start
+## Quick Start
 
 ### Windows (Automatic Script)
 Simply run `run.bat`. It will create `.env`, ask for your API credentials, install required dependencies, and launch Userbot Mode:
@@ -81,7 +81,7 @@ chmod +x run.sh
 
 ---
 
-## 📖 How to Use
+## How to Use
 
 ### 1. Userbot Mode (`Saveit.py`)
 Start the userbot:
@@ -102,21 +102,7 @@ python Saveit_bot.py
 
 ---
 
-## 🤝 Support & Contributions
+## Support & Contributions
 
 For any issues or suggestions, feel free to open a ticket or reach out:
-* **Telegram**: [@DevURANIUM](https://t.me/DevURANIUM)
 * **GitHub Issues**: [Issues Page](https://github.com/RacoonHQ/Saveit/issues)
-
----
-
-## ☕ Donation Links
-
-Support the project:
-* **BTC**: `bc1qcclcp574hnznm0nmdzzf0ta7366svjskttqks3`
-* **LTC**: `ltc1qcrkelw38gjrmg0ptjy2nshqej622kp76het7q0`
-* **XRP**: `rPoK5SBChFPqEiQv1W97LW6FKoJZLipDVQ`
-* **XLM**: `GDMUQREEZNBSTQOT5BV7MYEMXJFV3CYRZXUVOYCTIUZTHUWPHLVASFVD`
-* **TON**: `UQAJH2N0pqpvC9YN841w5NH1dCN9Lakwkpjvoy7vXf-vfqgv`
-* **TRON**: `TXJqhhwvkrTdnf5HReZf55hEzZuxjto3R4`
-* **USDT (BEP20)**: `0x1591036c4bD05b046532B65Df939fcd7824E18c7`
