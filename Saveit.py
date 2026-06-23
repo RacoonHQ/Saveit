@@ -12,12 +12,12 @@ for module_name, pip_name in required_libs.items():
     try:
         __import__(module_name)
     except ImportError:
-        print(f"Library '{pip_name}' tidak ditemukan. Menginstal otomatis...")
+        print(f"Library '{pip_name}' not found. Installing automatically...")
         try:
             subprocess.check_call([sys.executable, "-m", "pip", "install", pip_name])
-            print(f"✅ Berhasil menginstal '{pip_name}'")
+            print(f"Successfully installed '{pip_name}'")
         except Exception as e:
-            print(f"❌ Gagal menginstal '{pip_name}': {e}")
+            print(f"Failed to install '{pip_name}': {e}")
             sys.exit(1)
 
 from telethon import TelegramClient, events
@@ -79,7 +79,7 @@ while True:
     try:
         api_id = int(api_id)
     except ValueError:
-        print(f"❌ Account {i}: API_ID must be an integer")
+        print(f"Account {i}: API_ID must be an integer")
         i += 1
         continue
     accounts.append((i, api_id, api_hash))
@@ -191,11 +191,11 @@ async def main():
         # Print status for all accounts
         for acc_num, client, _ in clients:
             me = await client.get_me()
-            print(f"✅ Account {acc_num} running as @{me.username}")
+            print(f"Account {acc_num} running as @{me.username}")
         if handler:
-            print(f"🤫 Use '{handler}' to save media (no alerts shown)")
+            print(f"Use '{handler}' to save media (no alerts shown)")
         else:
-            print("🤫 Automatic saving enabled (no handler: reply to any media to save it)")
+            print("Automatic saving enabled (no handler: reply to any media to save it)")
         
         # Run until disconnected (first client keeps the loop alive)
         await clients[0][1].run_until_disconnected()
